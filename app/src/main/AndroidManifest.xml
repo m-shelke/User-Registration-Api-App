@@ -32,13 +32,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.InsertDataUsingApi">
         <activity
-            android:name=".UpdateActivity"
+            android:name=".Activities.UpdateActivity"
             android:exported="false" />
         <activity
-            android:name=".ShowDataActivity"
+            android:name=".Activities.ShowDataActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".Activities.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

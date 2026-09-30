@@ -1,0 +1,22 @@
+[
+    {
+        "merged": "com.example.insertdatausingapi.app-mergeDebugResources-36:/layout/activity_update.xml",
+        "source": "com.example.insertdatausingapi.app-main-39:/layout/activity_update.xml"
+    },
+    {
+        "merged": "com.example.insertdatausingapi.app-mergeDebugResources-36:/layout/show_data_item.xml",
+        "source": "com.example.insertdatausingapi.app-main-39:/layout/show_data_item.xml"
+    },
+    {
+        "merged": "com.example.insertdatausingapi.app-mergeDebugResources-36:/layout/activity_show_data.xml",
+        "source": "com.example.insertdatausingapi.app-main-39:/layout/activity_show_data.xml"
+    },
+    {
+        "merged": "com.example.insertdatausingapi.app-mergeDebugResources-36:/layout/show_gender.xml",
+        "source": "com.example.insertdatausingapi.app-main-39:/layout/show_gender.xml"
+    },
+    {
+        "merged": "com.example.insertdatausingapi.app-mergeDebugResources-36:/layout/activity_main.xml",
+        "source": "com.example.insertdatausingapi.app-main-39:/layout/activity_main.xml"
+    }
+]
