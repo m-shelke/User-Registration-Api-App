@@ -16,9 +16,9 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.insertdatausingapi.R;
 import com.example.insertdatausingapi.Adapter.UserAdapter;
 import com.example.insertdatausingapi.Models.UserModel;
+import com.example.insertdatausingapi.R;
 import com.example.insertdatausingapi.databinding.ActivityShowDataBinding;
 
 import org.json.JSONArray;
@@ -56,7 +56,7 @@ public class ShowDataActivity extends AppCompatActivity {
         userAdapter = new UserAdapter(ShowDataActivity.this, userModelArrayList);
         binding.showDataRecyclerview.setLayoutManager(new LinearLayoutManager(this));
         binding.showDataRecyclerview.setAdapter(userAdapter);
-        
+
         getData();
     }
 
@@ -72,10 +72,10 @@ public class ShowDataActivity extends AppCompatActivity {
                     JSONObject jsonObject = new JSONObject(response);
                     String success = jsonObject.getString("success");
                     JSONArray jsonArray = jsonObject.getJSONArray("data");
-                    
-                    if (success.equals("1")){
 
-                        for (int i = 0; i < jsonArray.length() ; i++) {
+                    if (success.equals("1")) {
+
+                        for (int i = 0; i < jsonArray.length(); i++) {
                             JSONObject jsonObject1 = jsonArray.getJSONObject(i);
 
                             String id = jsonObject1.getString("id");
@@ -84,30 +84,34 @@ public class ShowDataActivity extends AppCompatActivity {
                             String age = jsonObject1.getString("age");
                             String imgUrl = jsonObject1.getString("profileImage");
 
-                            String imgUrl2 = "http:/10.0.2.2/userapi/imageMedia/"+imgUrl;
-                            Log.e(TAG,imgUrl2);
+                            String imgUrl2 = "http:/10.0.2.2/userapi/imageMedia/" + imgUrl;
+                            Log.e(TAG, imgUrl2);
 
-                            userModel = new UserModel(id,name,gender,age,imgUrl);
+                            userModel = new UserModel(id, name, gender, age, imgUrl);
                             userModelArrayList.add(userModel);
                             userAdapter.notifyDataSetChanged();
 
                         }
                     }
                 } catch (JSONException e) {
-                    Log.e(TAG,e.getLocalizedMessage());
+                    Log.e(TAG, e.getLocalizedMessage());
                 }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError volleyError) {
 
-                Log.e(TAG, volleyError.toString() );
+                Log.e(TAG, volleyError.toString());
             }
         });
 
         RequestQueue requestQueue = Volley.newRequestQueue(ShowDataActivity.this);
         requestQueue.add(stringRequest);
+    }
 
-
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getData();
     }
 }
