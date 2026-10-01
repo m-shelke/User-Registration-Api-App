@@ -84,6 +84,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
                                 Intent intent = new Intent(context, UpdateActivity.class);
 
                                 Bundle bundle = new Bundle();
+                                bundle.putString("profileImg",imgUrl);
                                 bundle.putString("id",userModelArrayList.get(position).getId());
                                 bundle.putString("name",userModelArrayList.get(position).getName());
                                 bundle.putString("gender",userModelArrayList.get(position).getGender());

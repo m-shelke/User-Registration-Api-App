@@ -7,14 +7,62 @@
     android:layout_height="match_parent"
     tools:context=".Activities.UpdateActivity">
 
+    <RelativeLayout
+        android:id="@+id/profileRl"
+        android:layout_width="280dp"
+        android:layout_height="160dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="26dp"
+        android:gravity="center_vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_centerInParent="true"
+            android:layout_centerHorizontal="true"
+            app:cardCornerRadius="130dp">
+
+
+            <!--ShapeableImageView: to show image picked from Camera/Gallery or from Database -->
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/profileImg"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center"
+                android:fitsSystemWindows="true"
+                android:scaleType="centerCrop"
+                android:src="@drawable/person" />
+
+        </androidx.cardview.widget.CardView>
+
+        <!--FloatingActionButton: to pick image from Camera/Gallery-->
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/profileImagePickFab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:backgroundTint="#7A58B4"
+            android:src="@drawable/baseline_photo_camera_24"
+            android:tint="@color/black"
+            app:fabSize="mini" />
+
+    </RelativeLayout>
+
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
-        android:layout_marginTop="100dp"
         android:layout_marginRight="10dp"
         android:orientation="vertical"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@id/profileRl">
 
 
         <com.google.android.material.textfield.TextInputLayout
@@ -92,6 +140,7 @@
             android:textAllCaps="true"
             android:textStyle="bold"
             app:cornerRadius="10dp"
+            android:enabled="false"
             app:rippleColor="@android:color/transparent" />
 
         <ProgressBar

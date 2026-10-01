@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -14,6 +15,8 @@ import androidx.viewbinding.ViewBinding;
 import androidx.viewbinding.ViewBindings;
 import com.example.insertdatausingapi.R;
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.imageview.ShapeableImageView;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import java.lang.NullPointerException;
@@ -49,6 +52,15 @@ public final class ActivityUpdateBinding implements ViewBinding {
   public final TextInputLayout nameTil;
 
   @NonNull
+  public final FloatingActionButton profileImagePickFab;
+
+  @NonNull
+  public final ShapeableImageView profileImg;
+
+  @NonNull
+  public final RelativeLayout profileRl;
+
+  @NonNull
   public final ProgressBar progressBr;
 
   @NonNull
@@ -58,8 +70,9 @@ public final class ActivityUpdateBinding implements ViewBinding {
       @NonNull TextInputEditText ageEt, @NonNull TextInputLayout ageTil,
       @NonNull MaterialButton btSelectBirthDate, @NonNull MaterialButton btUpdate,
       @NonNull TextInputLayout genderTil, @NonNull ConstraintLayout main, @NonNull EditText nameEt,
-      @NonNull TextInputLayout nameTil, @NonNull ProgressBar progressBr,
-      @NonNull AutoCompleteTextView selectGenderACT) {
+      @NonNull TextInputLayout nameTil, @NonNull FloatingActionButton profileImagePickFab,
+      @NonNull ShapeableImageView profileImg, @NonNull RelativeLayout profileRl,
+      @NonNull ProgressBar progressBr, @NonNull AutoCompleteTextView selectGenderACT) {
     this.rootView = rootView;
     this.ageEt = ageEt;
     this.ageTil = ageTil;
@@ -69,6 +82,9 @@ public final class ActivityUpdateBinding implements ViewBinding {
     this.main = main;
     this.nameEt = nameEt;
     this.nameTil = nameTil;
+    this.profileImagePickFab = profileImagePickFab;
+    this.profileImg = profileImg;
+    this.profileRl = profileRl;
     this.progressBr = progressBr;
     this.selectGenderACT = selectGenderACT;
   }
@@ -144,6 +160,24 @@ public final class ActivityUpdateBinding implements ViewBinding {
         break missingId;
       }
 
+      id = R.id.profileImagePickFab;
+      FloatingActionButton profileImagePickFab = ViewBindings.findChildViewById(rootView, id);
+      if (profileImagePickFab == null) {
+        break missingId;
+      }
+
+      id = R.id.profileImg;
+      ShapeableImageView profileImg = ViewBindings.findChildViewById(rootView, id);
+      if (profileImg == null) {
+        break missingId;
+      }
+
+      id = R.id.profileRl;
+      RelativeLayout profileRl = ViewBindings.findChildViewById(rootView, id);
+      if (profileRl == null) {
+        break missingId;
+      }
+
       id = R.id.progressBr;
       ProgressBar progressBr = ViewBindings.findChildViewById(rootView, id);
       if (progressBr == null) {
@@ -157,8 +191,8 @@ public final class ActivityUpdateBinding implements ViewBinding {
       }
 
       return new ActivityUpdateBinding((ConstraintLayout) rootView, ageEt, ageTil,
-          btSelectBirthDate, btUpdate, genderTil, main, nameEt, nameTil, progressBr,
-          selectGenderACT);
+          btSelectBirthDate, btUpdate, genderTil, main, nameEt, nameTil, profileImagePickFab,
+          profileImg, profileRl, progressBr, selectGenderACT);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));
