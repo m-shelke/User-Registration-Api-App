@@ -30,6 +30,7 @@ import com.bumptech.glide.Glide;
 import com.example.insertdatausingapi.Activities.UpdateActivity;
 import com.example.insertdatausingapi.R;
 import com.example.insertdatausingapi.Models.UserModel;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -49,13 +50,13 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
 
     @NonNull
     @Override
-    public UserAdapter.UserViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public UserViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.show_data_item,parent,false);
         return new UserViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull UserAdapter.UserViewHolder holder, @SuppressLint("RecyclerView") int position) {
+    public void onBindViewHolder(@NonNull UserViewHolder holder, @SuppressLint("RecyclerView") int position) {
 
         String imgUrl = "http:/10.0.2.2/userapi/"+userModelArrayList.get(position).getProfileImage();
         Glide.with(context)
@@ -72,73 +73,94 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
             @Override
             public void onClick(View v) {
 
-                AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                CharSequence[] items = {"Edit Data","Delete Data"};
-                builder.setTitle(userModelArrayList.get(position).getName());
-                builder.setItems(items, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
+                View snackbarLayout = LayoutInflater.from(context).inflate(R.layout.snackbar_user_actions, null);
+                TextView tvMessage = snackbarLayout.findViewById(R.id.tvMessage);
+                TextView btnEdit = snackbarLayout.findViewById(R.id.btnEdit);
+                TextView btnDelete = snackbarLayout.findViewById(R.id.btnDelete);
 
-                        switch (which){
-                            case 0:
-                                Intent intent = new Intent(context, UpdateActivity.class);
+                tvMessage.setText("Choose Action For: "+userModelArrayList.get(position).getName());
+                Snackbar snackbar = Snackbar.make(holder.itemView, "", Snackbar.LENGTH_LONG);
 
-                                Bundle bundle = new Bundle();
-                                bundle.putString("profileImg",imgUrl);
-                                bundle.putString("id",userModelArrayList.get(position).getId());
-                                bundle.putString("name",userModelArrayList.get(position).getName());
-                                bundle.putString("gender",userModelArrayList.get(position).getGender());
-                                bundle.putString("age",userModelArrayList.get(position).getAge());
-                                intent.putExtras(bundle);
-                                context.startActivity(intent);
-                                break;
-                            case 1:
-                                deleteData(userModelArrayList.get(holder.getAdapterPosition()).getId());
-                                break;
-                        }
-                    }
+                @SuppressLint("RestrictedApi") Snackbar.SnackbarLayout snackbarView = (Snackbar.SnackbarLayout) snackbar.getView();
 
-                    private void deleteData(String id) {
+                // Remove default Snackbar content
+                snackbarView.removeAllViews();
+                // Add our custom layout
+                snackbarView.addView(snackbarLayout);
 
-                        StringRequest stringRequest = new StringRequest(Request.Method.POST, deleteDataUrl, new Response.Listener<String>() {
-                            @Override
-                            public void onResponse(String response) {
+                // EDIT
+                btnEdit.setOnClickListener(view -> {
 
-                                if (response.equalsIgnoreCase("Data Deleted")){
-                                    userModelArrayList.remove(position);
-                                    notifyItemRemoved(position);
-                                    Toast.makeText(context, response.toString(), Toast.LENGTH_SHORT).show();
-                                }else {
-                                    Toast.makeText(context, response.toString(), Toast.LENGTH_SHORT).show();
-                                }
+                    Intent intent = new Intent(context, UpdateActivity.class);
 
-                                Toast.makeText(context,response.toString(), Toast.LENGTH_SHORT).show();
-                            }
-                        }, new Response.ErrorListener() {
-                            @Override
-                            public void onErrorResponse(VolleyError volleyError) {
-                                Toast.makeText(context, volleyError.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
-                                Log.e(TAG, volleyError.toString() );
-                            }
-                        }){
-                            @Nullable
-                            @Override
-                            protected Map<String, String> getParams() throws AuthFailureError {
+                    Bundle bundle = new Bundle();
+                    bundle.putString("profileImg", imgUrl);
+                    bundle.putString("id", userModelArrayList.get(position).getId());
+                    bundle.putString("name", userModelArrayList.get(position).getName());
+                    bundle.putString("gender", userModelArrayList.get(position).getGender());
+                    bundle.putString("age", userModelArrayList.get(position).getAge());
+                    intent.putExtras(bundle);
 
-                                Map<String,String> map = new HashMap<String,String>();
-                                map.put("id",id);
-                                return map;
-                            }
-                        };
-
-                        RequestQueue requestQueue = Volley.newRequestQueue(context);
-                        requestQueue.add(stringRequest);
-                    }
+                    context.startActivity(intent);
+                    snackbar.dismiss();
                 });
 
-                builder.create().show();
+                snackbar.show();
+
+//                 DELETE
+                btnDelete.setOnClickListener(view -> {
+
+                    snackbar.dismiss();
+
+                    new AlertDialog.Builder(context).setTitle("Delete Data").setMessage("Are you sure you want to delete " + userModelArrayList.get(position).getName() + "?")
+                            .setNegativeButton("Cancel", null)
+                            .setPositiveButton("Delete", (dialog, which) -> {
+
+                                int adapterPosition = holder.getAdapterPosition();
+                                if (adapterPosition != RecyclerView.NO_POSITION) {
+                                    String id = userModelArrayList.get(adapterPosition).getId();
+                                    deleteData(id,adapterPosition);
+                                }
+                            }).show();
+                });
             }
         });
+    }
+
+    private void deleteData(String id,int position) {
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, deleteDataUrl, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+
+                if (response.equalsIgnoreCase("Data Deleted")){
+                    userModelArrayList.remove(position);
+                    notifyItemRemoved(position);
+                    Toast.makeText(context, response.toString(), Toast.LENGTH_SHORT).show();
+                    Log.e(TAG,response.toString());
+                }else {
+                    Toast.makeText(context, response.toString(), Toast.LENGTH_SHORT).show();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError volleyError) {
+                Toast.makeText(context, volleyError.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                Log.e(TAG, volleyError.toString() );
+            }
+        }){
+            @Nullable
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+
+                Map<String,String> map = new HashMap<String,String>();
+                map.put("id",id);
+                return map;
+            }
+        };
+
+        RequestQueue requestQueue = Volley.newRequestQueue(context);
+        requestQueue.add(stringRequest);
     }
 
     @Override

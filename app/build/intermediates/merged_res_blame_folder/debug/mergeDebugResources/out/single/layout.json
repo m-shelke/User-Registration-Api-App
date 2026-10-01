@@ -4,12 +4,16 @@
         "source": "C:\\Users\\Mahesh P Shelke\\.gradle\\daemon\\9.1.0\\com.example.insertdatausingapi.app-main-39:\\layout\\show_gender.xml"
     },
     {
-        "merged": "com.example.insertdatausingapi.app-mergeDebugResources-36:/layout/activity_update.xml",
-        "source": "com.example.insertdatausingapi.app-main-39:/layout/activity_update.xml"
-    },
-    {
         "merged": "C:\\Users\\Mahesh P Shelke\\.gradle\\daemon\\9.1.0\\com.example.insertdatausingapi.app-mergeDebugResources-36:\\layout\\show_data_item.xml",
         "source": "C:\\Users\\Mahesh P Shelke\\.gradle\\daemon\\9.1.0\\com.example.insertdatausingapi.app-main-39:\\layout\\show_data_item.xml"
+    },
+    {
+        "merged": "C:\\Users\\Mahesh P Shelke\\.gradle\\daemon\\9.1.0\\com.example.insertdatausingapi.app-mergeDebugResources-36:\\layout\\snackbar_user_actions.xml",
+        "source": "C:\\Users\\Mahesh P Shelke\\.gradle\\daemon\\9.1.0\\com.example.insertdatausingapi.app-main-39:\\layout\\snackbar_user_actions.xml"
+    },
+    {
+        "merged": "com.example.insertdatausingapi.app-mergeDebugResources-36:/layout/snackbar_user_actions.xml",
+        "source": "com.example.insertdatausingapi.app-main-39:/layout/snackbar_user_actions.xml"
     },
     {
         "merged": "C:\\Users\\Mahesh P Shelke\\.gradle\\daemon\\9.1.0\\com.example.insertdatausingapi.app-mergeDebugResources-36:\\layout\\activity_show_data.xml",

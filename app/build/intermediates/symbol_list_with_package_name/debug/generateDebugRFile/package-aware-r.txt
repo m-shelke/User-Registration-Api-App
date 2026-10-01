@@ -17,6 +17,8 @@ id ageTil
 id bt_SelectBirthDate
 id bt_Submit
 id bt_update
+id btnDelete
+id btnEdit
 id etAge
 id genderTil
 id item_linearLayout
@@ -35,11 +37,13 @@ id progressBr
 id selectGenderACT
 id show_data_recyclerview
 id skipCv
+id tvMessage
 layout activity_main
 layout activity_show_data
 layout activity_update
 layout show_data_item
 layout show_gender
+layout snackbar_user_actions
 mipmap ic_launcher
 mipmap ic_launcher_round
 string app_name

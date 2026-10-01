@@ -16,6 +16,8 @@ int id ageTil 0x0
 int id bt_SelectBirthDate 0x0
 int id bt_Submit 0x0
 int id bt_update 0x0
+int id btnDelete 0x0
+int id btnEdit 0x0
 int id etAge 0x0
 int id genderTil 0x0
 int id item_linearLayout 0x0
@@ -34,11 +36,13 @@ int id progressBr 0x0
 int id selectGenderACT 0x0
 int id show_data_recyclerview 0x0
 int id skipCv 0x0
+int id tvMessage 0x0
 int layout activity_main 0x0
 int layout activity_show_data 0x0
 int layout activity_update 0x0
 int layout show_data_item 0x0
 int layout show_gender 0x0
+int layout snackbar_user_actions 0x0
 int mipmap ic_launcher 0x0
 int mipmap ic_launcher_round 0x0
 int string app_name 0x0
